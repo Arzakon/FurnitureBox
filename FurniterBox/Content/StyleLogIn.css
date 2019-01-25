@@ -1,0 +1,41 @@
+﻿body {
+    background-color:aqua;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 700px;
+    min-width: 400px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+caption {
+    caption-side: bottom;
+    font-weight: bold;
+    font-style: italic;
+    margin: 4px;
+}
+
+table, th, td {
+    border: 1px solid gray;
+    height:50px;
+    width:150px;
+}
+
+th, td {
+    height: 24px;
+    padding: 4px;
+    vertical-align: middle;
+}
+
+.kundvagn {
+    float: right;
+}
+
+.kaos {
+    float:left;
+}
+
+

@@ -1,0 +1,8 @@
+{
+  "$type": "FurniterBox.Models.Users, FurniterBox",
+  "Id": 1,
+  "Name": "Mikael Engström",
+  "Email": "micke@primat.se",
+  "Password": "hejsan",
+  "CartList": []
+}

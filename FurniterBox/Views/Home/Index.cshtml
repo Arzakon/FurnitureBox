@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.totalPrice = 0;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>Välkommen till FurnitureBox  @Model.UserData.Name</p>
+
+
+
+<div class="wrapper">
+<div class="kaos">
+    <h3>Våra möbler</h3>
+
+    <table>
+        <tr>
+            <th>Namn</th>
+            <th>Vara</th>
+            <th>Designer</th>
+            <th>Färg</th>
+            <th>Pris</th>
+            <th>Utkörning</th>
+            <th>Info</th>
+        </tr>
+
+
+
+
+        @foreach (var furniture in Model.FurnitureList)
+        {
+            <tr>
+                <td>@furniture.Name</td>
+                <td>@furniture.Type</td>
+                <td>@furniture.Designer</td>
+                <td>@furniture.Color</td>
+                <td>@furniture.Price</td>
+                <td>@furniture.Delivery</td>
+
+
+                <td><img src="@furniture.ImgUrl" style="height:100px;width:200px;" /></td>
+
+
+
+
+
+
+                @if (furniture is FurniterBox.Models.Sofa)
+                {
+                    <td>
+                        Bäddsoffa: @(((FurniterBox.Models.Sofa)furniture).Bäddsoffa)
+                        @if ((((FurniterBox.Models.Sofa)furniture).Bäddsoffa) == true)
+                        {
+                            <span>
+                                Ja
+                            </span>
+                        }
+
+                    </td>
+                }
+
+                @if (furniture is FurniterBox.Models.Table)
+                {
+                    <td>
+                        Antal sittplatser: @(((FurniterBox.Models.Table)furniture).Seating)
+                        Max längd: @(((FurniterBox.Models.Table)furniture).MaxWidth)
+                        @if ((((FurniterBox.Models.Table)furniture).Resizable) == true)
+                        {
+                            <span>
+                                Ja
+                            </span>
+                        }
+                    </td>
+                }
+                @if (furniture is FurniterBox.Models.Shelf)
+                {
+                    <td>
+                        Antal hyllplan: @(((FurniterBox.Models.Shelf)furniture).NumberOfShelves)
+                    </td>
+                }
+
+                @if (furniture is FurniterBox.Models.Chair)
+                {
+                    <td>
+                        Typ av stol: @(((FurniterBox.Models.Chair)furniture).TypeOfChair)
+                    </td>
+                }
+
+
+
+                <td>
+                    @if (furniture.Count > 0)
+                    {
+                        <a href="~/Home/Lend/@furniture.Id">Köp</a>
+                    }
+                </td>
+
+            </tr>
+
+
+        }
+
+
+    </table>
+</div>
+
+    Kundvagnen där totala priset ska visas innan betalning
+<div class="kundvagn">
+    <h2>Kundvagn</h2>
+    <ul>
+        @if (Model.UserData.CartList != null)
+        {
+            foreach (var Cart in Model.UserData.CartList)
+            {
+                foreach (var Furniture in Model.FurnitureList)
+                {
+                    if (Cart.id == Furniture.Id)
+                    {
+                        <li><img src="@Furniture.ImgUrl" style="height:50px;width:50px;" /> @Furniture.Name : @Cart.Price </li>
+                        ViewBag.totalPrice = ViewBag.totalPrice + Cart.Price;
+
+                    }
+                }
+
+            }
+        }
+
+    </ul>
+    <h5>Total Price: @ViewBag.totalPrice</h5>
+
+
+    <a href="~/Home/Buy">Betala</a>
+</div>
+</div>
